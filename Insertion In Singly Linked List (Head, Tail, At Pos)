@@ -1,0 +1,108 @@
+#include<iostream>
+using namespace std;
+
+class Node{
+    public:
+        int data;
+        Node* next;
+        
+        Node(int val){
+            data = val;
+            next = NULL;
+        }
+ 
+};
+    int LengthofList(Node * head){
+        Node* temp = head;
+        int count = 0;
+        
+        while(temp ->next !=NULL){
+            count++;
+            temp = temp->next;
+        }
+        
+        return count;
+    }
+    
+    //Insertion in Singly Linked List 
+    void InsertAtHead(Node* &head,Node* &tail,int val){
+        //Create a Node
+        Node* newNode = new Node(val);
+        if(head == NULL && tail == NULL){
+            //Empty Linked list
+         
+            head = newNode;
+            tail = newNode;
+            return;
+        }
+        newNode -> next = head;
+        head = newNode;
+        
+    }
+    
+    void InsertAtTail(Node* &head,Node* &tail,int val){
+        Node* newNode = new Node(val);
+        
+        if(head == NULL && tail == NULL){
+            head = newNode;
+            tail = newNode;
+            return;
+        }
+        
+        tail -> next = newNode;
+        tail = newNode;
+    }
+    
+    void InsertInBetween(Node* head,Node* tail,int pos,int val){
+        int len = LengthofList(head);
+        
+        //Its the first pos which is insert at head
+        if(pos == 1){
+            InsertAtHead(head,tail,val);
+        }
+        
+        //This means insert at End
+        if(pos == len+1){
+            InsertAtTail(head,tail,val);
+        }
+        
+        Node* temp = head;
+        int count =1;
+        
+        while(count != pos-1 && temp->next != NULL){
+            temp=temp->next;
+            count++;
+        }
+        
+        Node* newNode = new Node(val);
+        
+        newNode -> next = temp -> next;
+        temp ->next = newNode;
+        
+    }
+    
+    void PrintList(Node* head){
+        Node* temp = head;
+        while(temp ->next != NULL){
+            cout<< temp -> data<<" -> ";
+            temp = temp->next;
+        }
+    }
+    
+    
+    
+
+int main(){
+    
+    Node* head = NULL;
+    Node* tail = NULL;
+    
+    InsertAtHead(head,tail,10);
+    InsertAtHead(head,tail,100);
+    InsertAtHead(head,tail,1000);
+    InsertAtHead(head,tail,10000);
+    
+    InsertInBetween(head,tail,3,20);
+    
+    PrintList(head);
+}
